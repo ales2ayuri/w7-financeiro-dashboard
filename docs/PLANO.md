@@ -12,6 +12,42 @@
 
 ---
 
+## 0. Decisões validadas (v3, 29/10/2026)
+
+Estas decisões **prevalecem** sobre qualquer trecho abaixo que diga o contrário.
+
+| # | Decisão | Regra resultante no sistema |
+|---|---|---|
+| D1 | **PAGO = a W7 já recebeu da marca** | Linha PAGO conta como **comissão recebida**. Como não há data, ela aparece com o selo "recebido — data não informada". Nos gráficos por mês de recebimento, a data prevista ("Data Receber o JOB") é usada como **data estimada**, sempre com o selo "estimada". Quando você lançar a data real no dashboard, ela substitui a estimativa |
+| D2 | **Data do JOB = data limite da postagem** | É o **prazo de entrega**. Define o mês de referência (competência) da linha. A data prevista de recebimento conta a partir dele. Se a Data do JOB cair num mês diferente das colunas Mês/Ano, a linha é marcada para revisão (ex.: TEMU BELLA, Mês = jul/25 e Data do JOB = 04/12/2024) |
+| D3 | **NF dupla: o 1º número é a NF da W7, o 2º é a da creator** | O 1º número é usado como evidência de faturamento da W7 e na conciliação. O 2º fica guardado, mas não entra em cálculo |
+| D4 | **Receita da W7 = somente a comissão.** As NFs costumam ser pagas separadamente (marca → W7 e marca → creator); às vezes a W7 recebe o bruto e repassa | Recebimentos são lançados **sobre a comissão** (padrão). Linhas em que a W7 recebe o bruto ganham a marcação "W7 recebe bruto e repassa", e só nesse caso o repasse à creator é controlado como obrigação da W7. O valor bruto aparece como **volume de negócios intermediado**, nunca como receita |
+| D5 | **Cada combinação marca × creator é um projeto/contrato diferente** | EMMA jul/26 com 4 creators = **4 contratos**, não 1 campanha. A unidade comercial passa a ser **marca × creator**. Uma série mensal da mesma dupla (ex.: GOCASE × NAT, 9 meses) continua sendo **1 contrato com parcelas** |
+| D6 | **Planilha considerada desde o início (2023); conciliação com o Asana a partir de jul/2025** | Os indicadores usam a planilha inteira. A detecção de "faltando no Asana" só vale para linhas com competência ≥ jul/2025 |
+| D7 | Inativa após 4–6 meses sem campanha; perdida após mais de 6 meses (baixa prioridade) | Mantido. Fica para a etapa 7 |
+| D8 | **GOCASE ADENDO e GOCASE EXTRA BLACK = marca GOCASE**; pode padronizar nomes | Os nomes são padronizados por uma tabela de apelidos (abaixo). O sufixo "ADENDO/EXTRA" vira a marcação **aditivo** do contrato, sem criar marca nova |
+
+### Tabela inicial de padronização de nomes (para sua conferência)
+
+| Nome na planilha | Nome padronizado | Situação |
+|---|---|---|
+| GOCASE ADENDO, GOCASE EXTRA BLACK | GOCASE | **Confirmado (D8)** |
+| KARCHER ADENDO, KARCHER CONTRATO 2 | KARCHER | Proposto (mesma lógica de D8) |
+| EMMA COLCHOES | EMMA | Proposto |
+| LICTROUX | LIECTROUX | Proposto (erro de digitação) |
+| BENDITA  CÂNFORA (dois espaços) | BENDITA CÂNFORA | Proposto |
+| LIA CONSÓRCIOSS | LIA CONSÓRCIOS | Proposto |
+| ED VIDA, ED. VIDA, ED VIDA - PRIORIZE DEUS, MAPEANDO A BÍBLIA (ED VIDA) | EDITORA VIDA | **A confirmar** (são produtos da mesma editora?) |
+| MARATONE A BÍBLIA (PH) | MAPAS DO PH | **A confirmar** |
+| HELEN, HELEN MSA | MENTORIA MSA | **A confirmar** |
+| DIVERSAS (jan–set/2023, BELLA R$ 17.003,41 e NAT R$ 63.400,00) | — | **A confirmar**: parece um consolidado histórico de várias marcas. Proposta: entra nos totais financeiros, mas fica fora das análises por marca |
+| Creator "VITORIA" (4 linhas) | VITÓRIA BEATO ou VITORIA DOZZO? | **A confirmar** (o Asana separa as duas) |
+| Creator "GABY GARCIA" | GABY (nome no Asana) | Proposto |
+
+Nomes padronizados valem só no dashboard. A planilha e o Asana não são alterados.
+
+---
+
 ## 1. O que os dados mostram
 
 ### 1.1 Cada linha da planilha é um faturamento mensal, e não o total do contrato repetido
@@ -289,7 +325,11 @@ manter o histórico completo.
 - IWS NAT dez/25 ("PAGO PARCIAL FALTA NAT", total de 9.000);
 - PINGOO NAT nov/25 ("PAGO EM CONTA ERRADA RESOLVER INTERNAMENTE", total de 6.000).
 
-### 4.3 Pergunta importante: o recebimento é sobre o valor bruto ou sobre a comissão?
+### 4.3 O recebimento é sobre o valor bruto ou sobre a comissão?
+
+> **Decidido (D4):** a receita da W7 é só a comissão. O recebimento é lançado **sobre a
+> comissão**, por padrão. A proposta original abaixo vale apenas para linhas marcadas
+> "W7 recebe bruto e repassa".
 Na prática, a marca paga o valor bruto à W7, e a W7 fica com a comissão e repassa o
 restante. Proposta:
 - o recebimento é lançado sobre o **valor bruto**;
@@ -355,10 +395,12 @@ VITORIA DOZZO, BELLA e VITÓRIA BEATO.
 | Em aberto (5 linhas, out–nov) | bruto R$ 39.500, comissão R$ 7.900 |
 | Repasse às creators (planilha) | R$ 81.600. Não fecha com 102.000 − 20.700 = 81.300: diferença de R$ 300, vinda das linhas da JESSICA (+600) e da VITORIA DOZZO (−300). **Marcado para revisão** |
 
-Leitura comercial: em jul/26 a EMMA contratou 4 creators no mesmo mês. Isso conta como
-**1 campanha com 4 creators**, que é a sugestão padrão e pode ser alterada. Ao longo do
-ano, a EMMA é uma **marca recorrente** com 13 linhas de faturamento. Nada disso é
-duplicidade.
+Leitura comercial (regra D5): em jul/26 a EMMA contratou 4 creators no mesmo mês. Isso
+conta como **4 contratos** (um por creator). Em 2026, a EMMA soma **13 contratos** e é
+uma **marca recorrente**. Nada disso é duplicidade.
+
+Pela regra D4, a **receita da W7 com a EMMA em 2026 é R$ 20.700** (comissão). Os
+R$ 102.000 são volume de negócios intermediado.
 
 ### Exemplo B — GOCASE × NAT: um contrato com 9 parcelas
 - 1 contrato, 9 linhas e 216.000 de valor bruto (seção 1.1).
@@ -456,7 +498,10 @@ ou no Asana.
 
 ---
 
-## 10. Decisões que preciso de você
+## 10. Decisões que eu precisava de você
+
+> **Respondidas em 29/10/2026. Ver seção 0 (D1–D8).** Itens que restaram:
+> padronização de EDITORA VIDA, MAPAS DO PH e MENTORIA MSA, a linha "DIVERSAS" e a creator "VITORIA".
 
 1. **PAGO na planilha** significa "a marca pagou a W7"? Linhas PAGO sem data contam como
    "comissão recebida" (com o selo "declarado, sem data") ou ficam de fora até você
