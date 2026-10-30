@@ -46,6 +46,19 @@ Estas decisões **prevalecem** sobre qualquer trecho abaixo que diga o contrári
 
 Nomes padronizados valem só no dashboard. A planilha e o Asana não são alterados.
 
+### Ajustes de 30/10/2026 (prevalecem sobre D1, D5, D8 e a tabela acima)
+
+| # | Decisão | Regra resultante |
+|---|---|---|
+| D1' | **PAGO = recebido na "Data Receber o JOB"** | Linha PAGO = comissão recebida, com **data de recebimento = Data Receber o JOB**, selo "informada (planilha)". Deixa de ser "estimada". Um lançamento manual no dashboard continua tendo prioridade |
+| D5' | **Cada mês é um contrato/job independente**, mesmo numa relação recorrente (ex.: GOCASE × NAT) | **Cada linha de faturamento = 1 contrato/job.** Contagens de contratos e ticket médio usam as linhas. A recorrência vira um **atributo de análise** ("série recorrente": mesma marca × creator em meses seguidos), sem juntar valores nem contagens |
+| D8' | **GOCASE ADENDO e GOCASE EXTRA BLACK** = marca GOCASE, mas **contratos independentes** | Já atendido por D5'. A marcação "aditivo" deixa de ser necessária |
+| D9 | **Qualquer divergência é revisada manualmente** | Mantida a regra: nada é corrigido automaticamente; tudo vai para a fila de revisão |
+| D10 | **EDITORA VIDA, MAPAS DO PH e MARATONE A BÍBLIA são produtos e campanhas diferentes** | **Não serão juntados.** Só as variações de grafia são unificadas (ED VIDA / ED. VIDA → EDITORA VIDA). "ED VIDA - PRIORIZE DEUS", "MAPEANDO A BÍBLIA (ED VIDA)" e "MARATONE A BÍBLIA (PH)" ficam como marcas próprias, e você pode juntá-las depois na tela de padronização |
+| D11 | **MSA pode padronizar** | HELEN, HELEN MSA → MENTORIA MSA |
+| D12 | **DIVERSAS = 2023 não documentado** | Entra nos totais financeiros com o rótulo "2023 — campanhas não documentadas". Fica fora das análises por marca e de ticket médio |
+| D13 | **VITÓRIA BEATO e VITORIA DOZZO são pessoas diferentes** | As 4 linhas com creator "VITORIA" (sem sobrenome) ficam como "VITORIA — não identificada", para você indicar quem é |
+
 ---
 
 ## 1. O que os dados mostram
