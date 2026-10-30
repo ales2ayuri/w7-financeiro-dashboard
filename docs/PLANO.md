@@ -59,6 +59,9 @@ Nomes padronizados valem só no dashboard. A planilha e o Asana não são altera
 | D12 | **DIVERSAS = 2023 não documentado** | Entra nos totais financeiros com o rótulo "2023 — campanhas não documentadas". Fica fora das análises por marca e de ticket médio |
 | D14 | **Recorrências são lançadas mês a mês.** Cada linha é um lançamento mensal contratado, com valores próprios em K, L e M. O total da recorrência nunca é lançado antecipadamente | **Indicadores = soma das linhas que existem na planilha.** Nunca multiplicar o valor mensal pela duração ("9 meses", "1 ano") e nunca projetar meses futuros não lançados. Substitui D5' (detalhe na seção 2) |
 | D15 | **Repasse integral e divisão de comissão com parceiros ficam fora da v1.** K, L e M já trazem os valores ajustados | Volume comercial = K; Faturamento W7 = M; Influenciadores = L. As observações de repasse e de parceiro (colunas N e O) não entram em nenhum cálculo nem geram alertas. Não há controle de entradas e saídas bancárias. Deixam de existir a marcação "W7 recebe bruto e repassa", a tabela `creator_payouts` e o alerta "valores não fecham" (K ≠ L + M) |
+| D16 | **Posts WhatsApp GOCASE × NAT (fev e mar/25) = contratações extras**, que viraram escopo oficial só em 2026 | Tratados como **entregas avulsas** (contratos próprios). Regra geral: uma linha com escopo diferente da série recorrente, mesmo repetindo a nota de vigência, é avulsa |
+| D17 | **Faturamento W7 = coluna M (comissão)**, a receita da W7 | Confirmado. O termo "faturamento W7" sempre significa Σ M |
+| D18 | **Coluna A (NF) com número = linha faturada**, seja pela NF de comissão, seja pela NF de repasse | Linha **faturada** se a coluna A tem pelo menos um dígito (267 das 369 linhas). Sem número ("", S/NF, SN, SEM NF, VOUCHER, PERMUTA, NÃO FATURAR) = **não faturada**. Textos fora do padrão ("OK", "CESAR", "NF 009 E ?") vão para revisão |
 | D13 | **VITÓRIA BEATO e VITORIA DOZZO são pessoas diferentes** | As 4 linhas com creator "VITORIA" (sem sobrenome) ficam como "VITORIA — não identificada", para você indicar quem é |
 
 ---
@@ -394,8 +397,8 @@ linha recebe a marcação "recebe só comissão".
 > | Volume comercial | Σ K |
 > | Faturamento W7 (receita) | Σ M |
 > | Valor das influenciadoras | Σ L (informativo; não é obrigação de caixa da W7 na v1) |
-> | Faturamento W7 previsto | Σ M das linhas sem NF da W7 e sem PAGO |
-> | Faturamento W7 com NF emitida, a receber | Σ M das linhas com NF da W7 (1º número da coluna A) e sem PAGO |
+> | Faturamento W7 previsto | Σ M das linhas **sem número na coluna A** e sem PAGO |
+> | Faturamento W7 com NF emitida, a receber | Σ M das linhas **com qualquer número na coluna A** (NF de comissão ou de repasse, D18) e sem PAGO |
 > | Faturamento W7 recebido | Σ M das linhas PAGO (data = coluna J, D1') + recebimentos parciais lançados no dashboard |
 > | A receber | Σ (M − recebido) das linhas não totalmente recebidas |
 > | Vencido | "A receber" com coluna J < hoje |
@@ -466,12 +469,11 @@ inferidas ou não informadas aparecem com aviso.
 >
 > - **Relacionamentos:** 1 (GOCASE × NAT).
 > - **Lançamentos mensais contratados:** 16.
-> - **Contratos distintos (sugestão para você confirmar):** 4.
->   - Renovação de 7 meses (set/24–mar/25): 3 lançamentos em 2025. Os 2 de posts
->     WhatsApp provavelmente também pertencem a ela, porque têm a mesma nota de vigência.
+> - **Contratos distintos:** 6.
+>   - Renovação de 7 meses (set/24–mar/25): 3 lançamentos em 2025.
 >   - Renovação de 9 meses (abr–dez/25): 9 lançamentos.
->   - EXTRA de outubro.
->   - EXTRA de novembro.
+>   - 4 avulsos: posts WhatsApp de fev e de mar (D16), EXTRA de outubro e EXTRA de
+>     novembro.
 > - **Valores:** nada é projetado. O contrato de 9 meses vale R$ 216.000 porque as 9
 >   linhas existem. Se só houvesse 4 linhas lançadas, valeria R$ 96.000.
 >
@@ -484,6 +486,16 @@ inferidas ou não informadas aparecem com aviso.
 >   gera mais alerta.
 > - **Recebido** (8 linhas PAGO, abr–ago, cada uma na sua data da coluna J): W7
 >   R$ 12.800. **A receber** (5 linhas, out–nov): W7 R$ 7.900.
+>
+> **C'. Situação do Faturamento W7 em aberto hoje (30/10/2026), aplicando D1', D17 e D18**
+>
+> | Situação | Linhas | Faturamento W7 (Σ M) |
+> |---|---|---|
+> | **Com NF, não recebido**: LEROY ALAÍNE ago/26 (800, venceu 29/10), MAIS CORREIOS JESSICA ago/26 (1.800, venceu 29/09), GOCASE NAT set/26 (5.600, vence 30/10), HOOMY NAT set/26 (500, vence 14/11) | 4 | **R$ 8.700**, dos quais R$ 2.600 vencidos |
+> | **Previsto (sem NF), out–nov/26**: QCY, AIWA, EMMA (NAT, BELLA, ALAÍNE, VITÓRIA BEATO, NAT nov), GOCASE (BELLA e NAT, out e nov), KARCHER NAT, ELECTROLUX JESSICA, BENDITA CÂNFORA (JESSICA e KARINE) | 15 | **R$ 28.700** |
+> | **Em revisão**: GOCASE ADENDO e GOCASE EXTRA BLACK nov/24 (sem NF, sem PAGO, R$ 2.500); QUEIMA DIÁRIA ALAÍNE mar/26 (M vazio); KARCHER NAT ago/25 ("PREJUÍZO", M vazio) | 4 | revisar |
+>
+> Permutas (XIAOMI NAT e ALAÍNE mai/26) não entram em nenhuma das linhas acima.
 
 ### Exemplo A — EMMA em 2026: marca recorrente, 13 contratações
 13 linhas (todas "AVULSO" ou sem série), de abr/26 a nov/26, com NAT, JESSICA, ALAÍNE,
