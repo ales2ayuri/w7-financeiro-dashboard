@@ -76,7 +76,6 @@ export const ISSUE_LABEL: Record<IssueCode, string> = {
   pendente_sem_previsao: "Pendente sem previsão de pagamento (J)",
   pago_conta_errada: "Pago em conta errada",
   status_pagamento_desconhecido: "Status de pagamento (P) não reconhecido",
-  creator_nao_identificada: "Creator pendente de identificação",
   possivel_duplicidade: "Possível duplicidade (mesma marca, creator, mês, descrição e valor)",
   nf_repetida: "Mesmas NFs (A) em meses diferentes",
 };

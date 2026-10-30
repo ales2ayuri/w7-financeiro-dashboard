@@ -6,7 +6,6 @@ import {
   normalizeCreator,
   NormalizedName,
   UNDOCUMENTED_BRAND_KEY,
-  UNIDENTIFIED_CREATOR_KEYS,
 } from "./normalize";
 import { cleanText, textKey } from "./text";
 
@@ -84,7 +83,6 @@ export type IssueCode =
   | "pendente_sem_previsao"
   | "pago_conta_errada"
   | "status_pagamento_desconhecido"
-  | "creator_nao_identificada"
   | "possivel_duplicidade"
   | "nf_repetida";
 
@@ -177,7 +175,6 @@ export function parseSheetRow(cells: string[], row: number): SheetEntry | null {
   }
 
   if (nf.nonStandard) issues.push("nf_fora_padrao");
-  if (UNIDENTIFIED_CREATOR_KEYS.has(creator.key)) issues.push("creator_nao_identificada");
 
   if (kind === "monetaria") {
     if ([k, l, m].some((c) => c.kind === "text")) issues.push("texto_em_valor");

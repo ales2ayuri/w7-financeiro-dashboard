@@ -120,9 +120,9 @@ describe("exceptions (§11)", () => {
     expect(e.monthSource).toBe("data_pagamento");
   });
 
-  it("VITORIA without surname stays pending identification", () => {
-    const [e] = parse([{ ...base, C: "VITORIA" }]).entries;
-    expect(e.issues).toContain("creator_nao_identificada");
+  it("VITORIA without surname is Vitória Beato (user decision); Dozzo stays separate", () => {
+    const { entries } = parse([{ ...base, C: "VITORIA" }, { ...base, C: "VITORIA BEATO" }, { ...base, C: "VITORIA DOZZO" }]);
+    expect(entries.map((e) => e.creator.name)).toEqual(["VITÓRIA BEATO", "VITÓRIA BEATO", "VITORIA DOZZO"]);
   });
 
   it("zero or empty commission is flagged, never corrected", () => {

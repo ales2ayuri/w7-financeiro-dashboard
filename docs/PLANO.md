@@ -42,7 +42,7 @@ A referência oficial é [`ESPECIFICACAO.md`](ESPECIFICACAO.md). Este plano só 
   - HELEN / HELEN MSA → MENTORIA MSA;
   - GOCASE ADENDO / EXTRA BLACK → GOCASE;
   - DIVERSAS → "2023 — campanhas não documentadas", fora dos indicadores por marca;
-  - "VITORIA" → pendente de identificação (ver seção 4).
+  - "VITORIA" → VITÓRIA BEATO (decisão de 30/10/2026).
 
   Cada normalização fica registrada com a justificativa.
 
@@ -130,7 +130,5 @@ Calculados na análise com as regras da seção 1.1. Serão revalidados na etapa
 ---
 
 ## 4. Pontos a confirmar
-1. **VITORIA:** a especificação deixa os 4 registros pendentes de identificação manual,
-   mas em 30/10 você informou que são da VITÓRIA BEATO. Qual vale?
-2. **Recebido por data:** pela §9, o recebido entra no mês da coluna J (previsão
-   registrada). Confirmado assim, sem outra fonte de data.
+- Decisões da proposta do Asana: ver `PROPOSTA_ASANA.md`, seção 8.
+- Planos pagos (Vercel / Supabase) e permissões de acesso: ver `GOVERNANCA.md` e a conversa de 30/10/2026.

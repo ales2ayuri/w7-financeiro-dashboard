@@ -180,7 +180,7 @@ A emissão de NF e o recebimento são controles independentes. Uma nota fiscal e
 Aplicar as seguintes regras:
 - Marcas repetidas não são duplicidades. Representam recorrência comercial e devem ser consideradas nos indicadores.
 - VITÓRIA BEATO e VITORIA DOZZO são pessoas diferentes.
-- Quatro registros identificados apenas como VITORIA permanecem pendentes de identificação manual.
+- Quatro registros identificados apenas como VITORIA são da VITÓRIA BEATO (decisão da usuária em 30/10/2026; substitui a regra anterior de deixá-los pendentes).
 - ED VIDA e ED. VIDA podem ser normalizados para EDITORA VIDA.
 - ED VIDA - PRIORIZE DEUS, MAPEANDO A BÍBLIA (ED VIDA) e MARATONE A BÍBLIA (PH) permanecem como entidades ou campanhas distintas.
 - HELEN e HELEN MSA podem ser normalizados para MENTORIA MSA.

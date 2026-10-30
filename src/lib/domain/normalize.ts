@@ -23,10 +23,14 @@ export const BRAND_NORMALIZATIONS: Normalization[] = [
 export const UNDOCUMENTED_BRAND_KEY = "DIVERSAS";
 export const UNDOCUMENTED_LABEL = "2023 — campanhas não documentadas";
 
-/** Creator names that cannot be attributed without a manual decision (§11). */
-export const UNIDENTIFIED_CREATOR_KEYS = new Set(["VITORIA"]);
+/** Creator normalizations decided by the user. */
+export const CREATOR_NORMALIZATIONS: Normalization[] = [
+  { from: "VITORIA", to: "VITÓRIA BEATO", reason: "Decisão da usuária (30/10/2026): os 4 registros VITORIA são da Vitória Beato" },
+  { from: "VITORIA BEATO", to: "VITÓRIA BEATO", reason: "Variação de grafia (acento)" },
+];
 
 const brandMap = new Map(BRAND_NORMALIZATIONS.map((n) => [textKey(n.from), n]));
+const creatorMap = new Map(CREATOR_NORMALIZATIONS.map((n) => [textKey(n.from), n]));
 
 export interface NormalizedName {
   raw: string;
@@ -44,6 +48,7 @@ export function normalizeBrand(raw: string | null | undefined): NormalizedName {
 
 export function normalizeCreator(raw: string | null | undefined): NormalizedName {
   const cleaned = cleanText(raw);
-  const name = cleaned.toUpperCase();
-  return { raw: cleaned, name, key: textKey(name), normalization: null };
+  const rule = creatorMap.get(textKey(cleaned)) ?? null;
+  const name = rule ? rule.to : cleaned.toUpperCase();
+  return { raw: cleaned, name, key: textKey(name), normalization: rule };
 }
