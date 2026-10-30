@@ -62,6 +62,7 @@ Nomes padronizados valem só no dashboard. A planilha e o Asana não são altera
 | D16 | **Posts WhatsApp GOCASE × NAT (fev e mar/25) = contratações extras**, que viraram escopo oficial só em 2026 | Tratados como **entregas avulsas** (contratos próprios). Regra geral: uma linha com escopo diferente da série recorrente, mesmo repetindo a nota de vigência, é avulsa |
 | D17 | **Faturamento W7 = coluna M (comissão)**, a receita da W7 | Confirmado. O termo "faturamento W7" sempre significa Σ M |
 | D18 | **Coluna A (NF) com número = linha faturada**, seja pela NF de comissão, seja pela NF de repasse | Linha **faturada** se a coluna A tem pelo menos um dígito (267 das 369 linhas). Sem número ("", S/NF, SN, SEM NF, VOUCHER, PERMUTA, NÃO FATURAR) = **não faturada**. Textos fora do padrão ("OK", "CESAR", "NF 009 E ?") vão para revisão |
+| D19 | **PREJUÍZO** (ex.: KARCHER × NAT ago/25): erro contratual; a W7 **não recebeu** pelo serviço | Coluna P = "PREJUÍZO": Faturamento W7 = R$ 0, a linha **não entra** em "a receber" nem em "vencido" e fica **fora do volume comercial**. Aparece num painel próprio de **Prejuízos** com K (R$ 9.000) e a perda informada na coluna O (−R$ 5.400). A entrega continua contada nas **entregas mensais**, porque o conteúdo foi produzido |
 | D13 | **VITÓRIA BEATO e VITORIA DOZZO são pessoas diferentes** | As 4 linhas com creator "VITORIA" (sem sobrenome) ficam como "VITORIA — não identificada", para você indicar quem é |
 
 ---
