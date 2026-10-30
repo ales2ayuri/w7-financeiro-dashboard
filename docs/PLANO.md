@@ -57,7 +57,7 @@ Nomes padronizados valem só no dashboard. A planilha e o Asana não são altera
 | D10 | **EDITORA VIDA, MAPAS DO PH e MARATONE A BÍBLIA são produtos e campanhas diferentes** | **Não serão juntados.** Só as variações de grafia são unificadas (ED VIDA / ED. VIDA → EDITORA VIDA). "ED VIDA - PRIORIZE DEUS", "MAPEANDO A BÍBLIA (ED VIDA)" e "MARATONE A BÍBLIA (PH)" ficam como marcas próprias, e você pode juntá-las depois na tela de padronização |
 | D11 | **MSA pode padronizar** | HELEN, HELEN MSA → MENTORIA MSA |
 | D12 | **DIVERSAS = 2023 não documentado** | Entra nos totais financeiros com o rótulo "2023 — campanhas não documentadas". Fica fora das análises por marca e de ticket médio |
-| D13 | **VITÓRIA BEATO e VITORIA DOZZO são pessoas diferentes** | As 4 linhas com creator "VITORIA" (sem sobrenome) ficam como "VITORIA — não identificada", para você indicar quem é |
+| D13 | **VITÓRIA BEATO e VITORIA DOZZO são pessoas diferentes.** As 4 linhas "VITORIA" da planilha (MENTORIA MSA out/23, TELLER BP out/25, GOCASE nov/25 e dez/25) são da **BEATO**. A **DOZZO** fez WAP e EMMA | Na planilha, "VITORIA" → VITÓRIA BEATO e "VITORIA DOZZO" → VITORIA DOZZO. No Asana valem os campos de cada tarefa (VITÓRIA BEATO / VITORIA DOZZO). Uma linha da DOZZO com marca diferente de WAP ou EMMA vai para revisão |
 
 ---
 
