@@ -23,6 +23,9 @@ export interface SyncSummary {
   touched: string[];
 }
 
+/** Time reserved for reading Asana change history in one run (free hosting allows ~60s). */
+const STORIES_TIME_BUDGET_MS = 30_000;
+
 const hashOf = (payload: unknown) => createHash("sha256").update(JSON.stringify(payload)).digest("hex");
 
 function chunks<T>(items: T[], size = 500): T[][] {
@@ -117,21 +120,21 @@ async function runSource(
   source: Source,
   triggeredBy: string,
   body: (runId: string) => Promise<{ incoming: Incoming[]; meta?: Record<string, unknown> }>,
-  after?: (runId: string, summary: SyncSummary) => Promise<void>,
+  after?: (runId: string, summary: SyncSummary) => Promise<Record<string, unknown> | void>,
 ): Promise<SyncSummary> {
   const runId = await startRun(db, source, triggeredBy);
   try {
     const { incoming, meta } = await body(runId);
     const stored = await storeRecords(db, source, runId, incoming);
     const summary = { source, runId, ...stored };
-    if (after) await after(runId, summary);
+    const afterMeta = after ? await after(runId, summary) : undefined;
     await finishRun(db, runId, {
       status: "ok",
       records_read: stored.read,
       records_new: stored.created,
       records_changed: stored.changed,
       records_removed: stored.removed,
-      ...(meta ? { meta } : {}),
+      ...(meta || afterMeta ? { meta: { ...(meta ?? {}), ...(afterMeta ?? {}) } } : {}),
     });
     return summary;
   } catch (err) {
@@ -188,17 +191,40 @@ export function syncAsana(db: SupabaseClient, triggeredBy: string): Promise<Sync
       return { incoming: tasks.map((t) => ({ externalId: t.gid, payload: t })) };
     },
     async (runId, summary) => {
-      const queue = [...summary.touched];
+      // Change history is read only for new or changed tasks, within a time budget that
+      // fits the free hosting limit. Whatever is left is carried over to the next run.
+      const { data: last } = await db
+        .from("sync_runs")
+        .select("meta")
+        .eq("source", "asana")
+        .eq("status", "ok")
+        .order("started_at", { ascending: false })
+        .limit(1);
+      const carried = ((last?.[0]?.meta as { pendingStories?: string[] } | undefined)?.pendingStories ?? []);
+      const queue = [...new Set([...carried, ...summary.touched])];
+      const deadline = Date.now() + STORIES_TIME_BUDGET_MS;
       const worker = async () => {
-        for (let gid = queue.shift(); gid; gid = queue.shift()) {
-          const stories = await readTaskStories(gid);
-          const rows = stories.map((s) => storyRow(gid, runId, s));
-          for (const part of chunks(rows)) {
-            await check(db.from("asana_events").upsert(part, { onConflict: "story_gid", ignoreDuplicates: true }));
+        while (queue.length > 0 && Date.now() < deadline) {
+          const gid = queue.shift()!;
+          try {
+            const stories = await readTaskStories(gid);
+            const rows = stories.map((s) => storyRow(gid, runId, s));
+            for (const part of chunks(rows)) {
+              await check(db.from("asana_events").upsert(part, { onConflict: "story_gid", ignoreDuplicates: true }));
+            }
+          } catch (err) {
+            queue.push(gid);
+            throw err;
           }
         }
       };
-      await Promise.all(Array.from({ length: 4 }, worker));
+      try {
+        await Promise.all(Array.from({ length: 4 }, worker));
+      } finally {
+        // Recorded even on failure so the next run resumes where this one stopped.
+        await db.from("sync_runs").update({ meta: { pendingStories: queue } }).eq("id", runId);
+      }
+      return { pendingStories: queue };
     },
   );
 }

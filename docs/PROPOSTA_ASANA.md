@@ -7,6 +7,20 @@
 > Base: leitura das 231 tarefas do projeto FINANCEIRO (GID 1211247788752322) e das
 > configurações dos campos, feita em 30/10/2026.
 
+## Respostas da usuária (31/10/2026)
+
+Prevalecem sobre o restante deste documento. **A implantação no Asana continua dependendo
+de aprovação expressa e fica para depois da primeira versão do dashboard.**
+
+| Tema | Decisão | Efeito na proposta |
+|---|---|---|
+| Data de recebimento | **Data de recebimento = data de conclusão da tarefa** | Não criar o campo DATA DE RECEBIMENTO. Concluir a tarefa passa a significar "recebido" (nas entregas monetárias). As conclusões feitas em lote no passado continuam tratadas como datas inferidas |
+| Afiliado | Pode entrar no futuro; é um % das vendas, sem valor fixo | Fica fora dos indicadores financeiros por enquanto |
+| Permuta | Não tem valor monetário nem faturamento; é troca por produto | Não criar VALOR NÃO MONETÁRIO. Permutas contam apenas como quantidade de entregas não monetárias |
+| Comissão | Calculada automaticamente de acordo com a influenciadora | % padrão por creator (regra do Asana ao escolher a influenciadora) + fórmula. Padrões observados na planilha 2025–2026: JESSICA e KARINE 30%; NAT, ALAÍNE, BELLA, GABY e VITÓRIA BEATO 20%. Exceções pontuais podem ter o % ajustado na tarefa |
+| Seção × status | **A seção é mais importante que o status** | A seção é a fonte da verdade da situação financeira. Não criar o campo SITUAÇÃO FINANCEIRA; o STATUS atual deixa de ser referência |
+| Link na coluna Q | **Não** (sem passo extra na rotina) | A conciliação continua por correspondência sugerida, com sua revisão |
+
 ---
 
 ## 1. Diagnóstico da estrutura atual

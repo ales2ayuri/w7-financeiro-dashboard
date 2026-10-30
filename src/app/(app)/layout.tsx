@@ -2,7 +2,10 @@ import Link from "next/link";
 import { requireUser } from "@/lib/auth";
 
 const NAV = [
-  { href: "/", label: "Visão geral" },
+  { href: "/", label: "Financeiro" },
+  { href: "/comercial", label: "Comercial" },
+  { href: "/metas", label: "Metas" },
+  { href: "/lancamentos", label: "Lançamentos" },
   { href: "/conciliacao", label: "Conciliação" },
   { href: "/alertas", label: "Alertas" },
   { href: "/fontes", label: "Fontes de dados" },

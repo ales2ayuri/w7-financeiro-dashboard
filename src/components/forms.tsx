@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { ActionState, linkManually, recordDecision, syncNow } from "@/app/actions";
+import { ActionState, linkManually, recordDecision, saveGoal, syncNow } from "@/app/actions";
 
 const initial: ActionState = { ok: true, message: null };
 
@@ -92,6 +92,43 @@ export function ManualLinkForm() {
       </label>
       <button disabled={pending} className="rounded-lg bg-w7-forest px-4 py-2 text-sm text-white disabled:opacity-60">
         Vincular
+      </button>
+      {state.message && <p className={`text-xs md:col-span-4 ${state.ok ? "text-w7-green" : "text-w7-pink"}`}>{state.message}</p>}
+    </form>
+  );
+}
+
+const MONTH_OPTIONS = ["Ano inteiro", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+export function GoalForm({ year }: { year: number }) {
+  const [state, action, pending] = useActionState(saveGoal, initial);
+  const field = "mt-1 w-full rounded-lg border border-w7-rose bg-white px-3 py-2 text-sm";
+  return (
+    <form action={action} className="grid gap-3 md:grid-cols-[1.2fr_1fr_1fr_auto] md:items-end">
+      <input type="hidden" name="year" value={year} />
+      <label className="text-xs text-w7-green">
+        Meta
+        <select name="kind" className={field}>
+          <option value="comercial">Comercial · volume bruto (K)</option>
+          <option value="financeira">Financeira · faturamento W7 (M)</option>
+        </select>
+      </label>
+      <label className="text-xs text-w7-green">
+        Período ({year})
+        <select name="month" className={field}>
+          {MONTH_OPTIONS.map((m, i) => (
+            <option key={m} value={i}>
+              {m}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="text-xs text-w7-green">
+        Valor (R$)
+        <input name="target" inputMode="decimal" placeholder="ex.: 150.000" required className={field} />
+      </label>
+      <button disabled={pending} className="rounded-lg bg-w7-forest px-4 py-2 text-sm text-white disabled:opacity-60">
+        Salvar
       </button>
       {state.message && <p className={`text-xs md:col-span-4 ${state.ok ? "text-w7-green" : "text-w7-pink"}`}>{state.message}</p>}
     </form>

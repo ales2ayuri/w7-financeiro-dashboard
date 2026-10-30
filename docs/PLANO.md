@@ -100,9 +100,9 @@ Valores em centavos. Nenhuma escrita na planilha ou no Asana.
 | 4 | Consulta às duas fontes (leitura) | Projeto Next.js + Supabase; importadores da planilha e do Asana com snapshots; testes com os casos reais | **Código pronto**, aguardando credenciais |
 | 5 | Conciliação | Pareamento, categorias e tela de conciliação com filtros e decisões | **Código pronto**, aguardando credenciais |
 | 6 | Relatório de divergências | Relatório de lacunas e pendências para você revisar | A fazer |
-| 7 | Proposta de estrutura do Asana | Campos faltantes, redundantes e padronizações, **para aprovação** | A fazer |
+| 7 | Proposta de estrutura do Asana | Campos faltantes, redundantes e padronizações, **para aprovação** | **Proposta entregue**; implantação após a primeira versão |
 | 8 | Aprovação de mudanças no Asana | Nenhuma alteração sem sua autorização | — |
-| 9 | Indicadores, gráficos, filtros e metas | Financeiro, comercial, concentração, crescimento e metas; todo indicador abre os registros que o compõem | A fazer |
+| 9 | Indicadores, gráficos, filtros e metas | Financeiro, comercial, concentração, crescimento e metas; todo indicador abre os registros que o compõem | **Código pronto e validado localmente com cópia dos dados reais** |
 | 10 | Validação dos cálculos | Totais conferidos contra a planilha | A fazer |
 | 11 | Sincronização e histórico | Sincronização automática + botão manual | A fazer |
 | 12–14 | Operação paralela e migração | Painel de confiabilidade do Asana; migração só com sua aprovação | Futuro |

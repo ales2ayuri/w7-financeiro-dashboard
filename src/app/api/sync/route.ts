@@ -4,7 +4,7 @@ import { adminClient } from "@/lib/supabase/admin";
 import { syncAsana, syncSheet } from "@/lib/sync/sync";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 /** Scheduled synchronization (Vercel Cron). Protected by CRON_SECRET. */
 export async function GET(request: NextRequest) {

@@ -1,18 +1,29 @@
 import { SyncButton } from "@/components/forms";
-import { Badge, Card, Empty, PageHeader, Table } from "@/components/ui";
+import { Badge, Card, Empty, PageHeader, Stat, Table } from "@/components/ui";
 import { loadRuns } from "@/lib/data/load";
+import { loadWorkspace } from "@/lib/data/views";
 import { dateTime } from "@/lib/format";
 import { adminClient } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
+// The "Sincronizar agora" button runs on this page; the free hosting plan allows ~60s.
+export const maxDuration = 60;
 
 export default async function SourcesPage() {
-  const runs = await loadRuns(adminClient(), 50);
+  const db = adminClient();
+  const [runs, ws] = await Promise.all([loadRuns(db, 50), loadWorkspace(db)]);
+  const r = ws.reconciliation;
   return (
     <>
       <PageHeader eyebrow="Fontes de dados" title="Sincronizações">
         <SyncButton />
       </PageHeader>
+      <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <Stat label="Lançamentos na planilha" value={ws.sheet.entries.length} />
+        <Stat label="Tarefas no Asana" value={ws.asana.filter((a) => !a.excluded).length} hint={`${r.excludedAsana.length} subtarefas/modelo fora da contagem`} />
+        <Stat label="Alertas em aberto" value={ws.alerts.filter((a) => !a.reviewed).length} />
+        <Stat label="Vínculos planilha × Asana" value={r.links.length} hint={`${r.onlySheet.length} só planilha · ${r.onlyAsana.length} só Asana`} />
+      </div>
       <Card>
         <p className="mb-4 text-sm text-w7-green">
           Leitura somente: nada é alterado na planilha ou no Asana. Cada mudança encontrada é guardada como uma nova versão,

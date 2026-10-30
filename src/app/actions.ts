@@ -81,3 +81,26 @@ export async function linkManually(_: ActionState, form: FormData): Promise<Acti
   data.set("payload", JSON.stringify({ sheetRows: rows, asanaGid }));
   return recordDecision({ ok: true, message: null }, data);
 }
+
+/** Creates or changes a goal. Every change is logged in goal_history by the database. */
+export async function saveGoal(_: ActionState, form: FormData): Promise<ActionState> {
+  const email = await requireUser();
+  const kind = String(form.get("kind") ?? "");
+  const year = Number(form.get("year"));
+  const monthValue = Number(form.get("month") ?? 0);
+  const raw = String(form.get("target") ?? "").replace(/\./g, "").replace(",", ".").replace(/[^\d.]/g, "");
+  const target = Math.round(Number(raw) * 100);
+  if (!["comercial", "financeira"].includes(kind) || !Number.isInteger(year) || !(monthValue >= 0 && monthValue <= 12)) {
+    return { ok: false, message: "Meta inválida." };
+  }
+  if (!raw || !Number.isFinite(target) || target < 0) return { ok: false, message: "Informe um valor válido." };
+  const { error } = await adminClient()
+    .from("goals")
+    .upsert(
+      { kind, period: monthValue === 0 ? "ano" : "mes", year, month: monthValue, target_cents: target, updated_by: email, updated_at: new Date().toISOString() },
+      { onConflict: "kind,period,year,month" },
+    );
+  if (error) return { ok: false, message: error.message };
+  revalidatePath("/metas");
+  return { ok: true, message: "Meta salva." };
+}
