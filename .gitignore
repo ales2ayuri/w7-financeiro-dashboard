@@ -8,3 +8,9 @@ next-env.d.ts
 .vercel/
 # dados reais exportados localmente nunca vão para o git
 data/
+# credenciais: nunca no git
+*service-account*.json
+*credentials*.json
+gcp-key*.json
+*.pem
+.secrets/
