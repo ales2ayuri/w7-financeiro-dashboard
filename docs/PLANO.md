@@ -57,6 +57,8 @@ Nomes padronizados valem só no dashboard. A planilha e o Asana não são altera
 | D10 | **EDITORA VIDA, MAPAS DO PH e MARATONE A BÍBLIA são produtos e campanhas diferentes** | **Não serão juntados.** Só as variações de grafia são unificadas (ED VIDA / ED. VIDA → EDITORA VIDA). "ED VIDA - PRIORIZE DEUS", "MAPEANDO A BÍBLIA (ED VIDA)" e "MARATONE A BÍBLIA (PH)" ficam como marcas próprias, e você pode juntá-las depois na tela de padronização |
 | D11 | **MSA pode padronizar** | HELEN, HELEN MSA → MENTORIA MSA |
 | D12 | **DIVERSAS = 2023 não documentado** | Entra nos totais financeiros com o rótulo "2023 — campanhas não documentadas". Fica fora das análises por marca e de ticket médio |
+| D14 | **Recorrências são lançadas mês a mês.** Cada linha é um lançamento mensal contratado, com valores próprios em K, L e M. O total da recorrência nunca é lançado antecipadamente | **Indicadores = soma das linhas que existem na planilha.** Nunca multiplicar o valor mensal pela duração ("9 meses", "1 ano") e nunca projetar meses futuros não lançados. Substitui D5' (detalhe na seção 2) |
+| D15 | **Repasse integral e divisão de comissão com parceiros ficam fora da v1.** K, L e M já trazem os valores ajustados | Volume comercial = K; Faturamento W7 = M; Influenciadores = L. As observações de repasse e de parceiro (colunas N e O) não entram em nenhum cálculo nem geram alertas. Não há controle de entradas e saídas bancárias. Deixam de existir a marcação "W7 recebe bruto e repassa", a tabela `creator_payouts` e o alerta "valores não fecham" (K ≠ L + M) |
 | D13 | **VITÓRIA BEATO e VITORIA DOZZO são pessoas diferentes** | As 4 linhas com creator "VITORIA" (sem sobrenome) ficam como "VITORIA — não identificada", para você indicar quem é |
 
 ---
@@ -197,6 +199,31 @@ antigas, com data e hora. Inclui:
 ---
 
 ## 2. Estrutura definitiva: marca, contrato, campanha e parcela
+
+> **Atualizado por D14 (30/10/2026).** A estrutura válida é esta:
+>
+> ```
+> Marca
+>  └── Relacionamento comercial = marca × creator   (ex.: GOCASE × NAT)
+>       └── Contrato = série recorrente ("1 DE 9 … 9 DE 9") ou contratação avulsa/extra
+>            └── Lançamento mensal contratado = 1 linha da planilha (K, L e M próprios)
+> ```
+>
+> | O que o dashboard conta | Como conta |
+> |---|---|
+> | **Relacionamentos comerciais distintos** | Pares marca × creator distintos com pelo menos 1 lançamento no período |
+> | **Contratos distintos** | Séries recorrentes (sugeridas pela coluna H, pelas notas de vigência e por meses seguidos, e confirmadas por você) + contratações avulsas e extras |
+> | **Lançamentos mensais contratados** | Número de linhas, pelo mês de referência (colunas D/E) |
+> | **Entregas mensais** | Número de linhas pelo mês da **data limite de postagem** (coluna I). Pode diferir do mês contratado, como em "SET/OUT (COBRANÇA, MAS ENTREGA SERA OUT/NOV)". Com prazo já vencido conta como "prazo cumprido (sem confirmação de postagem)"; com prazo futuro, "a entregar" |
+> | **Volume comercial** (mensal e acumulado) | Σ coluna K das linhas existentes |
+> | **Faturamento W7** (mensal e acumulado) | Σ coluna M das linhas existentes |
+> | **Valor das influenciadoras** | Σ coluna L das linhas existentes |
+>
+> **Nunca** se multiplica o valor mensal pela duração da recorrência, e **nunca** se
+> projetam meses não lançados. Um contrato "9 meses" com 4 linhas lançadas vale a soma
+> dessas 4 linhas. O agrupamento em contratos só muda **contagens**, nunca valores.
+>
+> O texto abaixo foi mantido como histórico do raciocínio.
 
 ```
 Marca (canônica, com apelidos)
@@ -358,6 +385,28 @@ linha recebe a marcação "recebe só comissão".
 
 ## 5. Indicadores: definições e fórmulas
 
+> **Versão válida após D14/D15 (30/10/2026).** Colunas: K = Valor Total,
+> L = Valor Influenciador, M = Valor Assessoria. Só linhas monetárias. Permutas e
+> vouchers ficam à parte (atividade não monetária).
+>
+> | Indicador | Fórmula |
+> |---|---|
+> | Volume comercial | Σ K |
+> | Faturamento W7 (receita) | Σ M |
+> | Valor das influenciadoras | Σ L (informativo; não é obrigação de caixa da W7 na v1) |
+> | Faturamento W7 previsto | Σ M das linhas sem NF da W7 e sem PAGO |
+> | Faturamento W7 com NF emitida, a receber | Σ M das linhas com NF da W7 (1º número da coluna A) e sem PAGO |
+> | Faturamento W7 recebido | Σ M das linhas PAGO (data = coluna J, D1') + recebimentos parciais lançados no dashboard |
+> | A receber | Σ (M − recebido) das linhas não totalmente recebidas |
+> | Vencido | "A receber" com coluna J < hoje |
+> | Acumulados | Soma mês a mês, desde o início do ano ou do período escolhido |
+>
+> Recebimentos parciais (seção 4.2) passam a ser lançados **sobre o valor da coluna M**.
+> Para não confundir dois sentidos de "faturado": **"Faturamento W7"** é a receita
+> (Σ M); **"com NF emitida"** é a etapa de cobrança.
+>
+> A tabela original abaixo continua como referência. Onde houver conflito, vale esta.
+
 Todos os indicadores aceitam uma **base de data** escolhida na tela: **competência**
 (padrão), contratação, emissão da NF ou recebimento. Valores que dependem de datas
 inferidas ou não informadas aparecem com aviso.
@@ -395,6 +444,46 @@ inferidas ou não informadas aparecem com aviso.
 ---
 
 ## 6. Exemplos reais de cálculo
+
+> **Exemplos revisados (D14/D15).** Substituem os exemplos A e B abaixo.
+>
+> **A'. GOCASE × NAT em 2025, lançamento a lançamento (dados reais da planilha)**
+>
+> | Mês | Coluna H | K (volume) | M (W7) | L (influ) | Volume acum. | W7 acum. | Influ acum. |
+> |---|---|---|---|---|---|---|---|
+> | jan | 5 DE 7 | 17.700 | 3.540 | 14.160 | 17.700 | 3.540 | 14.160 |
+> | fev | 6 DE 7 | 17.700 | 3.540 | 14.160 | 35.400 | 7.080 | 28.320 |
+> | fev | (posts WhatsApp) | 3.000 | 600 | 2.400 | 38.400 | 7.680 | 30.720 |
+> | mar | 7 DE 7 | 17.700 | 3.540 | 14.160 | 56.100 | 11.220 | 44.880 |
+> | mar | MENSAL (posts WhatsApp) | 3.000 | 600 | 2.400 | 59.100 | 11.820 | 47.280 |
+> | abr | 1 DE 9 | 24.000 | 4.800 | 19.200 | 83.100 | 16.620 | 66.480 |
+> | mai → set | 2 a 6 DE 9 | 24.000/mês | 4.800/mês | 19.200/mês | 203.100 | 40.620 | 162.480 |
+> | out | EXTRA | 7.000 | 1.400 | 5.600 | 210.100 | 42.020 | 168.080 |
+> | out | 7 DE 9 | 24.000 | 4.800 | 19.200 | 234.100 | 46.820 | 187.280 |
+> | nov | EXTRA | 10.000 | 2.000 | 8.000 | 244.100 | 48.820 | 195.280 |
+> | nov | 8 DE 9 | 24.000 | 4.800 | 19.200 | 268.100 | 53.620 | 214.480 |
+> | dez | 8 DE 9 (deveria ser 9) | 24.000 | 4.800 | 19.200 | **292.100** | **58.420** | **233.680** |
+>
+> - **Relacionamentos:** 1 (GOCASE × NAT).
+> - **Lançamentos mensais contratados:** 16.
+> - **Contratos distintos (sugestão para você confirmar):** 4.
+>   - Renovação de 7 meses (set/24–mar/25): 3 lançamentos em 2025. Os 2 de posts
+>     WhatsApp provavelmente também pertencem a ela, porque têm a mesma nota de vigência.
+>   - Renovação de 9 meses (abr–dez/25): 9 lançamentos.
+>   - EXTRA de outubro.
+>   - EXTRA de novembro.
+> - **Valores:** nada é projetado. O contrato de 9 meses vale R$ 216.000 porque as 9
+>   linhas existem. Se só houvesse 4 linhas lançadas, valeria R$ 96.000.
+>
+> **B'. EMMA em 2026**
+> - **Relacionamentos:** 6 (EMMA × NAT, JESSICA, ALAÍNE, VITORIA DOZZO, BELLA e
+>   VITÓRIA BEATO).
+> - **Lançamentos:** 13, todos avulsos, portanto 13 contratos.
+> - **Totais:** volume R$ 102.000 (Σ K), Faturamento W7 R$ 20.700 (Σ M) e
+>   influenciadoras R$ 81.600 (Σ L). Pela D15, o fato de K ≠ L + M em duas linhas não
+>   gera mais alerta.
+> - **Recebido** (8 linhas PAGO, abr–ago, cada uma na sua data da coluna J): W7
+>   R$ 12.800. **A receber** (5 linhas, out–nov): W7 R$ 7.900.
 
 ### Exemplo A — EMMA em 2026: marca recorrente, 13 contratações
 13 linhas (todas "AVULSO" ou sem série), de abr/26 a nov/26, com NAT, JESSICA, ALAÍNE,
@@ -484,7 +573,8 @@ monetário.
 | `billing_line_sources` | **nova** | Vínculo da linha com o registro da planilha e/ou do Asana, com pontuação de confiança e origem (automático ou manual) |
 | `line_dates` | **nova** | Tipo de data, valor, origem e certeza (confirmada, informada, inferida, não informada) |
 | `receipts` | **revisada** | Recebimentos lançados no dashboard, incluindo estornos; somente acréscimos |
-| `creator_payouts` | **nova** | Repasses às creators: previsto, repassado, data |
+| `relationships` | **nova (D14)** | Par marca × creator, com primeira e última competência |
+| ~~`creator_payouts`~~ | **removida (D15)** | Repasses e operação bancária ficam fora da v1 |
 | `reconciliation_issues` | mantida | Divergências, com os dois lados registrados |
 | `decisions` | ampliada | Decisões de conciliação, agrupamento de contratos e classificação; justificativa obrigatória; somente acréscimos |
 | `review_flags` | **nova** | Sinais de revisão e quem os resolveu |
