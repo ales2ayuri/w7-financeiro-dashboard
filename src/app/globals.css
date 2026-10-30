@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-w7-ivory text-w7-forest font-sans antialiased;
+}
+
+h1, h2, h3 {
+  @apply font-display;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}

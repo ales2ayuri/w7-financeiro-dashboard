@@ -97,8 +97,8 @@ Valores em centavos. Nenhuma escrita na planilha ou no Asana.
 | 1 | Analisar o repositório | Repositório novo; só documentação | **Feito** |
 | 2 | Examinar a planilha | Estrutura, padrões e exceções mapeados | **Feito** (análise) |
 | 3 | Examinar o Asana | Campos, seções, subtarefas automáticas e histórico mapeados | **Feito** (análise) |
-| 4 | Consulta às duas fontes (leitura) | Projeto Next.js + Supabase; importadores da planilha e do Asana com snapshots; testes com os casos reais | A fazer |
-| 5 | Conciliação | Pareamento, categorias e tela de conciliação com filtros e decisões | A fazer |
+| 4 | Consulta às duas fontes (leitura) | Projeto Next.js + Supabase; importadores da planilha e do Asana com snapshots; testes com os casos reais | **Código pronto**, aguardando credenciais |
+| 5 | Conciliação | Pareamento, categorias e tela de conciliação com filtros e decisões | **Código pronto**, aguardando credenciais |
 | 6 | Relatório de divergências | Relatório de lacunas e pendências para você revisar | A fazer |
 | 7 | Proposta de estrutura do Asana | Campos faltantes, redundantes e padronizações, **para aprovação** | A fazer |
 | 8 | Aprovação de mudanças no Asana | Nenhuma alteração sem sua autorização | — |
