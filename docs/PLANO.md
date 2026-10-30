@@ -63,6 +63,8 @@ Nomes padronizados valem só no dashboard. A planilha e o Asana não são altera
 | D17 | **Faturamento W7 = coluna M (comissão)**, a receita da W7 | Confirmado. O termo "faturamento W7" sempre significa Σ M |
 | D18 | **Coluna A (NF) com número = linha faturada**, seja pela NF de comissão, seja pela NF de repasse | Linha **faturada** se a coluna A tem pelo menos um dígito (267 das 369 linhas). Sem número ("", S/NF, SN, SEM NF, VOUCHER, PERMUTA, NÃO FATURAR) = **não faturada**. Textos fora do padrão ("OK", "CESAR", "NF 009 E ?") vão para revisão |
 | D19 | **PREJUÍZO** (ex.: KARCHER × NAT ago/25): erro contratual; a W7 **não recebeu** pelo serviço | Coluna P = "PREJUÍZO": Faturamento W7 = R$ 0, a linha **não entra** em "a receber" nem em "vencido" e fica **fora do volume comercial**. Aparece num painel próprio de **Prejuízos** com K (R$ 9.000) e a perda informada na coluna O (−R$ 5.400). A entrega continua contada nas **entregas mensais**, porque o conteúdo foi produzido |
+| D20 | **Células mescladas valem para todas as linhas da mesclagem.** Verificado: a aba tem 2 mesclagens, ambas nas linhas 119–121 (coluna A = "NF 2 e 219" e coluna P = "PAGO") | O importador lê as mesclagens pela API (`sheets.merges`) e copia o valor da primeira célula para as outras linhas mescladas. Resultado: GOCASE ADENDO (linha 120) e GOCASE EXTRA BLACK (linha 121) ficam **faturadas e recebidas em 29/12/2024**. Se surgir uma mesclagem que cruze colunas de valor (K, L, M), ela vai para revisão em vez de ser copiada |
+| D21 | **QUEIMA DIÁRIA × ALAÍNE mar/26 (linha 287): não mexer.** Provavelmente foi recebida e não documentada | Coluna P = "VERIFICAR" vira o estado **"em verificação"**: fica fora de "vencido", entra numa lista própria e não é corrigida. Como a coluna M está vazia, ela aparece com "comissão não informada" |
 | D13 | **VITÓRIA BEATO e VITORIA DOZZO são pessoas diferentes** | As 4 linhas com creator "VITORIA" (sem sobrenome) ficam como "VITORIA — não identificada", para você indicar quem é |
 
 ---
@@ -494,7 +496,12 @@ inferidas ou não informadas aparecem com aviso.
 > |---|---|---|
 > | **Com NF, não recebido**: LEROY ALAÍNE ago/26 (800, venceu 29/10), MAIS CORREIOS JESSICA ago/26 (1.800, venceu 29/09), GOCASE NAT set/26 (5.600, vence 30/10), HOOMY NAT set/26 (500, vence 14/11) | 4 | **R$ 8.700**, dos quais R$ 2.600 vencidos |
 > | **Previsto (sem NF), out–nov/26**: QCY, AIWA, EMMA (NAT, BELLA, ALAÍNE, VITÓRIA BEATO, NAT nov), GOCASE (BELLA e NAT, out e nov), KARCHER NAT, ELECTROLUX JESSICA, BENDITA CÂNFORA (JESSICA e KARINE) | 15 | **R$ 28.700** |
-> | **Em revisão**: GOCASE ADENDO e GOCASE EXTRA BLACK nov/24 (sem NF, sem PAGO, R$ 2.500); QUEIMA DIÁRIA ALAÍNE mar/26 (M vazio); KARCHER NAT ago/25 ("PREJUÍZO", M vazio) | 4 | revisar |
+> | **Em verificação**: QUEIMA DIÁRIA ALAÍNE mar/26 ("VERIFICAR", M vazio, D21) | 1 | comissão não informada |
+> | **Prejuízo**: KARCHER NAT ago/25 (D19) | 1 | R$ 0 de receita; perda informada de −R$ 5.400 |
+>
+> GOCASE ADENDO e GOCASE EXTRA BLACK (nov/24) **saíram da revisão**. Pelas células
+> mescladas (D20), estão faturadas (NF 2 e 219) e recebidas (PAGO) em 29/12/2024, somando
+> R$ 2.500 de Faturamento W7.
 >
 > Permutas (XIAOMI NAT e ALAÍNE mai/26) não entram em nenhuma das linhas acima.
 
