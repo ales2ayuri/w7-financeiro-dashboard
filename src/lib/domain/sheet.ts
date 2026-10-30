@@ -12,18 +12,19 @@ import { cleanText, textKey } from "./text";
 /** Fixed column layout of the FINANCEIRO tab (0-based index). */
 export const COL = { A: 0, B: 1, C: 2, D: 3, E: 4, F: 5, G: 6, H: 7, I: 8, J: 9, K: 10, L: 11, M: 12, N: 13, O: 14, P: 15 } as const;
 
-const EXPECTED_HEADER: [number, string][] = [
-  [COL.A, "NF"],
-  [COL.B, "MARCA"],
-  [COL.C, "INFLUENCIADOR"],
-  [COL.D, "MES"],
-  [COL.E, "ANO"],
-  [COL.I, "DATA DO JOB"],
-  [COL.J, "DATA RECEBER O JOB"],
-  [COL.K, "VALOR TOTAL"],
-  [COL.L, "VALOR INFLUENCIADOR"],
-  [COL.M, "VALOR ASSESSORIA"],
-  [COL.P, "PAGAMENTO"],
+/** Accepted header titles per column; a title outside the list stops the import. */
+const EXPECTED_HEADER: [number, string[]][] = [
+  [COL.A, ["NF"]],
+  [COL.B, ["MARCA"]],
+  [COL.C, ["INFLUENCIADOR"]],
+  [COL.D, ["MES"]],
+  [COL.E, ["ANO"]],
+  [COL.I, ["DATA DO JOB"]],
+  [COL.J, ["DATA RECEBER O JOB"]],
+  [COL.K, ["VALOR TOTAL", "VALOR TOTAL CONTRATO"]],
+  [COL.L, ["VALOR INFLUENCIADOR"]],
+  [COL.M, ["VALOR ASSESSORIA"]],
+  [COL.P, ["PAGAMENTO"]],
 ];
 
 /**
@@ -31,8 +32,9 @@ const EXPECTED_HEADER: [number, string][] = [
  * result must stop the import: reading shifted columns would produce wrong numbers.
  */
 export function validateHeader(header: string[]): string[] {
-  return EXPECTED_HEADER.filter(([index, expected]) => textKey(header[index]) !== expected).map(
-    ([index, expected]) => `Coluna ${String.fromCharCode(65 + index)}: esperado "${expected}", encontrado "${cleanText(header[index])}"`,
+  return EXPECTED_HEADER.filter(([index, accepted]) => !accepted.includes(textKey(header[index]))).map(
+    ([index, accepted]) =>
+      `Coluna ${String.fromCharCode(65 + index)}: esperado "${accepted.join('" ou "')}", encontrado "${cleanText(header[index])}"`,
   );
 }
 

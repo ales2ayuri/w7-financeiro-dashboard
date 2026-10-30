@@ -21,7 +21,8 @@ export async function sendLoginLink(_: LoginState, form: FormData): Promise<Logi
   const supabase = await sessionClient();
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: `${origin}/auth/callback` },
+    // Invited users only: public sign-up is disabled in Supabase and never triggered here.
+    options: { emailRedirectTo: `${origin}/auth/callback`, shouldCreateUser: false },
   });
   return error ? { ok: false, message: "Não foi possível enviar o link agora. Tente novamente." } : sent;
 }

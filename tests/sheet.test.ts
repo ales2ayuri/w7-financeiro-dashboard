@@ -26,6 +26,12 @@ function parse(rows: RowInput[], merges: Merge[] = []) {
 }
 
 describe("header validation", () => {
+  it("accepts the renamed column K title (same column, same meaning)", () => {
+    const renamed = [...HEADER];
+    renamed[10] = "Valor Total Contrato";
+    expect(parseSheet([renamed, row(base)], []).headerProblems).toEqual([]);
+  });
+
   it("stops the import when columns move", () => {
     const shifted = [...HEADER];
     shifted.splice(10, 0, "NOVA COLUNA");
