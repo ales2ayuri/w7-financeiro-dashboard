@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+.env
+.env*.local
+*.tsbuildinfo
+next-env.d.ts
+.vercel/
+# dados reais exportados localmente nunca vão para o git
+data/
